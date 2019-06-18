@@ -42,7 +42,7 @@ namespace OpenApiSharedServiceCore.Service
             {
                 multipartFormDataContent.Add(new StringContent(item.Value), item.Key);
             }
-            if (rp.streamByte!=null&& rp.streamByte.Length > 0&&!string.IsNullOrWhiteSpace(rp.fileName)) {
+            if (rp.streamByte!=null&& rp.streamByte.Length > 0) {
                 var contentByteContent = new ByteArrayContent(rp.streamByte);
                 contentByteContent.Headers.Add("Content-Type", "application/octet-stream");
                 contentByteContent.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
