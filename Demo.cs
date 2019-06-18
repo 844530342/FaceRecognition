@@ -14,14 +14,6 @@ namespace OpenApiSharedServiceCore.Service
 {
     public class FileOperationConnectionServer
     {
-        private  HttpClient _httpClient;
-
-
-        public FileOperationConnectionServer()
-        {
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("请求域名地址");
-        }
         public class requestparameter {
             public string fileName { get; set; }
             public byte[] streamByte { get; set; }
@@ -33,10 +25,12 @@ namespace OpenApiSharedServiceCore.Service
         /// <param name="rp"></param>
         /// <returns></returns>
         public HttpResponseMessage InvokeMethod(string url, requestparameter rp)
-        {          
+        {
+            HttpClient _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri(url);
             HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
             httpRequestMessage.Method = HttpMethod.Post;
-            SortedDictionary<string, string> sortDic=  GetParameter(rp);//
+            SortedDictionary<string, string> sortDic=  GetParameter(rp);//GetParameter(rp)传入需要请求的参数返回键值对
             var multipartFormDataContent = new MultipartFormDataContent();
             foreach (var item in sortDic)
             {
@@ -51,32 +45,8 @@ namespace OpenApiSharedServiceCore.Service
                 multipartFormDataContent.Add(contentByteContent, "image_content");
             }
             httpRequestMessage.Content = multipartFormDataContent;
-            var response =  _httpClient.PostAsync("/uop/method", httpRequestMessage.Content).Result;
+            var response =  _httpClient.SendAsync(httpRequestMessage).Result;
             return response;
-        }
-
-        private static SortedDictionary<string, string> GetParameter(requestparameter rp)
-        {
-            SortedDictionary<string, string> sortDic = new SortedDictionary<string, string>();
-            System.Reflection.PropertyInfo[] propertys = rp.GetType().GetProperties();
-            foreach (System.Reflection.PropertyInfo item in propertys)
-            {
-                if (item.GetType() == typeof(byte[]))
-                {
-                    continue;
-                }
-                else
-                {
-                    string Name = item.Name;
-                    string value = item.GetValue(rp, null) == null ? "" : item.GetValue(rp, null).ToString();                   
-                    if (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(value))
-                    {
-                        sortDic.Add(Name, value);
-                    }
-                }
-
-            }
-            return sortDic;
-        }
+        }       
     }
 }
