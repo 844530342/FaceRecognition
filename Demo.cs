@@ -10,7 +10,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
+<<<<<<< HEAD
 namespace 
+=======
+namespace
+>>>>>>> 5d45f0586e8097b94f42bb09832c3c576e88450d
 {
     public class ConnectionServer
     {
