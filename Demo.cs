@@ -10,16 +10,16 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenApiSharedServiceCore.Service
+namespace 
 {
-    public class FileOperationConnectionServer
+    public class ConnectionServer
     {
         public class requestparameter {
             public string fileName { get; set; }
             public byte[] streamByte { get; set; }
         }
         /// <summary>
-        /// 上传
+        /// 上传文件
         /// </summary>
         /// <param name="url"></param>
         /// <param name="rp"></param>
