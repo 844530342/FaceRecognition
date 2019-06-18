@@ -10,9 +10,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenApiSharedServiceCore.Service
+namespace
 {
-    public class FileOperationConnectionServer
+    public class ConnectionServer
     {
         public class requestparameter {
             public string fileName { get; set; }
